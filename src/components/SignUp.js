@@ -16,7 +16,7 @@ const SignUp =()=>{
             navigate('/');
         }
     }, [userLoggedIn, navigate]);
-    
+
     const collectData=async (e)=>{
         e.preventDefault();
         if(!isRegistering){
@@ -33,7 +33,7 @@ const SignUp =()=>{
                 //localStorage.setItem('user',JSON.stringify({name,email_id}));
                 result = await result.json();
                 let flag=0;
-                localStorage.setItem('user', JSON.stringify({ name,email_id,flag}));
+                localStorage.setItem('user', JSON.stringify({ name,email,flag}));
                 document.getElementById("message").innerText = result['message'];
                 //console.warn(result);
                 if(result['message']==='Registered'){
