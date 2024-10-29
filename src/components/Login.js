@@ -5,7 +5,7 @@ import { useAuth } from '../contexts/authContext';
 
 const Login = () => {
     const { userLoggedIn } = useAuth();
-    const [email_id, setEmail] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [isSigningIn, setIsSigningIn] = useState(false);
     const [error, setError] = useState('');
@@ -24,13 +24,13 @@ const Login = () => {
             setIsSigningIn(true);
             setError('');
             try {
-                const res=await doSignInWithEmailAndPassword(email_id, password);
+                const res=await doSignInWithEmailAndPassword(email, password);
                 if(res){
                     let flag=0;
-                    let result=await fetch(`http://localhost:5000/login/${email_id}`);
+                    let result=await fetch(`http://localhost:5000/login/${email}`);
                     result= await result.json();
                     let name=result['name'];
-                    localStorage.setItem('user', JSON.stringify({ name,email_id,flag}));
+                    localStorage.setItem('user', JSON.stringify({ name,email,flag}));
                     navigate('/');
                 }
             } catch (error) {
@@ -49,7 +49,7 @@ const Login = () => {
                 const result=await doSignInWithGoogle();
                 // Extract user information
                 const user=result.user;
-                const email = user.email;
+                setEmail(user.email);
                 console.warn(email);
                 //const name = user.displayName;
                 if(result){
@@ -76,7 +76,7 @@ const Login = () => {
                 <input 
                     className="inputBox"
                     type="text"
-                    value={email_id} 
+                    value={email} 
                     onChange={(e) => setEmail(e.target.value)} 
                     placeholder="Enter Email ID" 
                 />
