@@ -34,7 +34,7 @@ const SignUp =()=>{
                 result = await result.json();
                 let flag=0;
                 localStorage.setItem('user', JSON.stringify({ name,email,flag}));
-                document.getElementById("message").innerText = result['message'];
+                if(result['message']) document.getElementById("message").innerText = result['message'];
                 //console.warn(result);
                 if(result['message']==='Registered'){
                     navigate('/');
